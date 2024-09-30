@@ -1,19 +1,20 @@
-import { useEffect } from "react";
 
 export const User = () => {
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
+    const handleClick = () => {
+
       fetch("http://localhost:8080/api/demo", {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "text/plain",
           "Authorization": `Bearer ${token}`
         }
       })
-      .then(res => console.log(res))
-
-  }, [])
+      .then(res => {
+        console.log(res)
+      }) 
+    }
   return (
-    <div>Hola Mundo</div>
+    <div onClick={handleClick}>Hola Mundo</div>
   )
 }

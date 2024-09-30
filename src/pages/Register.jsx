@@ -9,8 +9,7 @@ export const Register = () => {
     lastName: ""
   })
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = () => {
     const {username, password, firstName, lastName} = formData;
 
     fetch("http://localhost:8080/auth/register", {
