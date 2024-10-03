@@ -1,28 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const User = () => {
   const [information, setInformation] = useState("Nothing");
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-
-    const api = async () => {
-
-      const headers = {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-
-      const data = await fetch("http://localhost:8080/api/demo" , headers)
-      console.log(data)
-      // const jsonData = await data.json();
-      // setInformation(jsonData["content"]);
+  const api = async () => {
+    const headers = {
+      "Content-Type": "text/plain",
+      "Authorization": `Bearer ${token}`
     }
 
-    api();
-  }, [token])  
+    try {
+      const response = await fetch("/api/demo", { // URL relativa
+        method: "GET",
+        headers: headers
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud protegida");
+      }
+
+      const jsonData = await response.text();
+      setInformation(jsonData)
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   return (
-    <div>{information}</div>
+    <div onClick={api}>{information}</div>
   )
 }
