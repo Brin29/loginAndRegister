@@ -1,7 +1,8 @@
 
 export const User = () => {
   const token = localStorage.getItem('token');
-
+  console.log(token)
+  
     const handleClick = () => {
 
       fetch("http://localhost:8080/api/demo", {
