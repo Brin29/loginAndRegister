@@ -1,4 +1,5 @@
 import useForm from "../hooks/useForm";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const initialData = {
@@ -7,6 +8,8 @@ export const Register = () => {
     firstName: "",
     lastName: ""
   }
+
+  const navigate = useNavigate();
 
   const onValidate = (form) => {
     let errors = {};
@@ -48,7 +51,11 @@ export const Register = () => {
     return errors;
   }
 
-  const { form, errors, loading, handleChange, handleSubmit} = useForm(initialData, onValidate)
+  const onSuccess = () => {
+    navigate("/login"); // Redirecciona a la página de login
+  };
+
+  const { form, errors, loading, handleChange, handleSubmit} = useForm(initialData, onValidate, onSuccess, "/auth/register")
 
   return (
     <div className="w-full max-w-xs">
@@ -59,7 +66,7 @@ export const Register = () => {
             Correo Electronico
           </label> 
           <input 
-            value={form.nombre}
+            value={form.username}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="username" placeholder="Correo Electronico" onChange={handleChange} type="text" name="username"/>
             {errors.username &&  <div className="flex items-center bg-red-400 text-white text-sm font-bold px-4 py-3" role="alert">
