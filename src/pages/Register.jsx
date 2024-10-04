@@ -9,30 +9,43 @@ export const Register = () => {
   }
 
   const onValidate = (form) => {
-    let isError = false;
-    let errors = {}
+    let errors = {};
+    let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
+    let regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*.,]).{8,}$/;
+
 
     if (!form.username.trim()) {
-      errors.username = "El campo 'nombre' no debe ser vacio"
-      isError = true;
+      errors.username = "El campo 'correo' no debe ser vacio"
+    } 
+    else if (!regexEmail.test(form.username)){
+      errors.username = "El 'correo' ingresado no es valido"
     }
 
     if (!form.password.trim()) {
       errors.password = "El campo 'contraseña' no debe ser vacio"
-      isError = true;
+    } 
+    else if (!regexPassword.test(form.password)){
+      errors.password = "La 'contraseña' ingresado no es valido"
     }
 
     if (!form.firstName.trim()) {
       errors.firstName = "El campo 'nombre' no debe ser vacio"
-      isError = true;
+    }
+    
+    else if (!regexName.test(form.firstName)){
+      errors.firstName = "El 'nombre' ingresado no es valido"
     }
 
     if (!form.lastName.trim()) {
-      errors.lastName = "El campo 'apllido' no debe ser vacio"
-      isError = true;
+      errors.lastName = "El campo 'apellido' no debe ser vacio"
     }
 
-    return isError ? errors :  null;
+    else if (!regexName.test(form.lastName)){
+      errors.lastName = "El 'apellido' ingresado no es valido"
+    }
+
+    return errors;
   }
 
   const { form, errors, loading, handleChange, handleSubmit} = useForm(initialData, onValidate)
@@ -89,13 +102,11 @@ export const Register = () => {
         </div>
 
         <div className="flex items-center justify-between">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Register
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" disabled={loading}>
+            {loading ? "Enviando..." : "Enviar"}
           </button>
         </div>
       </form>
     </div>
   ) 
 }
-
-// 

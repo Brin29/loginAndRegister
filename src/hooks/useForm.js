@@ -15,14 +15,12 @@ const useForm = (intialData, onValidate, api) => {
     const handleSubmit = async e => {
         e.preventDefault();
         const err = onValidate(form);
+        setErrors(err)
 
-        if (err === null){
-          console.log("Enviando Formulario...")
+        if (Object.keys(err).length === 0){
+          setLoading(true);
         }
-        else{
-          setErrors(err)
-          return null;
-        }
+ 
     
         try {
           const response = await fetch("/auth/register", { 
@@ -37,8 +35,10 @@ const useForm = (intialData, onValidate, api) => {
     
           const json = await response.json();
           console.log("Registro exitoso:", json);
+          setLoading(false);
         } catch (error) {
           console.error("Error:", error);
+          setLoading(false);
         }
       };
 
