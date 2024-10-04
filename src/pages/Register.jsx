@@ -52,7 +52,7 @@ export const Register = () => {
   }
 
   const onSuccess = () => {
-    navigate("/login"); // Redirecciona a la página de login
+    navigate("/login");
   };
 
   const { form, errors, loading, handleChange, handleSubmit} = useForm(initialData, onValidate, onSuccess, "/auth/register")
