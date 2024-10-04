@@ -58,9 +58,9 @@ export const Register = () => {
   const { form, errors, loading, handleChange, handleSubmit} = useForm(initialData, onValidate, onSuccess, "/auth/register")
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full max-w-xs mx-auto mt-10">
       <h2>Registrarse</h2>
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
             Correo Electronico
