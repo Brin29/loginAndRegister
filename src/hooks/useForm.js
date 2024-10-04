@@ -4,18 +4,25 @@ const useForm = (intialData, onValidate, api) => {
 
     const [form, setForm] = useState(intialData);
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState(null); 
+    const [errors, setErrors] = useState([]); 
 
     const handleChange = e => {
         const { name, value } = e.target
         setForm({ ...form, [name]: value})
     }
 
-    console.log(form)
 
     const handleSubmit = async e => {
-
         e.preventDefault();
+        const err = onValidate(form);
+
+        if (err === null){
+          console.log("Enviando Formulario...")
+        }
+        else{
+          setErrors(err)
+          return null;
+        }
     
         try {
           const response = await fetch("/auth/register", { 
